@@ -1,8 +1,12 @@
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header.jsx";
+
 const App = () => {
   return (
-    <>
-      <center className="text-2xl font-bold mt-10">App</center>
-    </>
+    <div>
+      <Header />
+      <Outlet />
+    </div>
   );
 };
 export default App;
