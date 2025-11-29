@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-black text-white">
+    <header className="flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0 z-50 text-white bg-linear-to-b from-black to-transparent">
       {/* Logo & navigation */}
       <div className="flex items-center gap-8">
         <img src={netflixLogo} alt="Netflix Logo" className="w-32" />

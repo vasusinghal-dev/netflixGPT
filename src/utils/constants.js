@@ -6,3 +6,12 @@ export const heroSectionBg =
 
 export const userBadgeIcon =
   "https://wallpapers.com/images/thumbnail/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
+
+export const API_Options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMjg0ZWM4OTAzOGFhMGJkZGJiMTJlNzk3YzljMmJiNyIsIm5iZiI6MTc2NDQwNTQwNy4wNzIsInN1YiI6IjY5MmFiMDlmZTYyNTU3OTZhZjRjNDBkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-LgeWxPQCN2WaxIDJAZ1TiqVNmGGnahtyXAan0nRMGM",
+  },
+};
