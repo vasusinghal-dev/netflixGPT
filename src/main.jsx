@@ -8,14 +8,20 @@ import Signup from "./pages/Signup";
 import Browse from "./pages/Browse";
 import appStore from "./store/appStore.js";
 import { Provider } from "react-redux";
+import AuthObserver from "./components/AuthObserver.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Signup /> },
-  { path: "login", element: <Login /> },
   {
-    path: "browse",
-    element: <App />,
-    children: [{ index: true, element: <Browse /> }],
+    element: <AuthObserver />,
+    children: [
+      { path: "/", element: <Signup /> },
+      { path: "/login", element: <Login /> },
+      {
+        path: "/browse",
+        element: <App />,
+        children: [{ index: true, element: <Browse /> }],
+      },
+    ],
   },
 ]);
 

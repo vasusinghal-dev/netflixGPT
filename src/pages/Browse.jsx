@@ -1,4 +1,4 @@
 const Browse = () => {
-  return <div>Browse</div>;
+  return <div className="h-screen bg-black text-white">Browse</div>;
 };
 export default Browse;

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   validateEmail,
   validateName,
   validatePassword,
 } from "../utils/validation.js";
 import { signupUser } from "../utils/auth.js";
+import { heroSectionBg, netflixLogo } from "../utils/constants.js";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -15,8 +16,6 @@ const Signup = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,23 +36,21 @@ const Signup = () => {
       return;
     }
 
-    if (user) navigate("/browse", { replace: true });
     console.log("Signup successful:", user);
   };
 
   return (
-    <div className="relative h-screen w-full bg-cover bg-center bg-no-repeat overflow-hidden bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/4ffe3d37-1fc1-4d93-b61a-1fa58c11ccff/web/IN-en-20251124-TRIFECTA-perspective_9f00d07d-f08e-494f-8907-92371138c534_large.jpg')]">
+    <div
+      className="relative h-screen w-full bg-cover bg-center bg-no-repeat overflow-hidden"
+      style={{ backgroundImage: `url(${heroSectionBg})` }}
+    >
       {/* black overlay */}
       <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10">
         {/* header */}
         <div className="mt-4 flex justify-around items-center px-8">
-          <img
-            src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-08-26/consent/87b6a5c0-0104-4e96-a291-092c11350111/0198e689-25fa-7d64-bb49-0f7e75f898d2/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-            alt="Netflix Logo"
-            className="w-45"
-          />
+          <img src={netflixLogo} className="w-45" />
           <Link
             to="login"
             className="py-2 px-4 text-sm font-bold rounded text-white bg-red-600 hover:bg-red-700 transition duration-200"
@@ -63,7 +60,7 @@ const Signup = () => {
         </div>
 
         {/* center content */}
-        <div className="text-center text-white mt-80 px-4 md:px-0">
+        <div className="text-center text-white mt-36 px-4 md:px-0">
           <h1 className="mx-auto w-160 text-4xl md:text-7xl font-bold mb-8">
             Unlimited movies, shows, and more
           </h1>
