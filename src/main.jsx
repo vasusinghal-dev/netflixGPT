@@ -6,6 +6,8 @@ import App from "./App.jsx";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Browse from "./pages/Browse";
+import appStore from "./store/appStore.js";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   { path: "/", element: <Signup /> },
@@ -19,6 +21,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={appStore}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 );
