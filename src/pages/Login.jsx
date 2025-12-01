@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { validateEmail, validatePassword } from "../utils/validation.js";
 import { loginUser } from "../utils/auth.js";
-import { heroSectionBg, netflixLogo } from "../utils/constants.js";
+import { heroSectionBg } from "../utils/constants.js";
+import Logo from "../assets/Logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -43,7 +44,7 @@ const Login = () => {
       {/* header */}
       <div className="relative z-10">
         <div className="ml-93 mt-2">
-          <img src={netflixLogo} alt="Netflix_Logo_PMS" className="w-45" />
+          <img src={Logo} alt="Netflix_Logo_PMS" className="w-45" />
         </div>
 
         {/* login form */}

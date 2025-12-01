@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Logo from "../assets/Logo.png";
 import searchIcon from "../assets/Search_Icon.png";
 import accountIcon from "../assets/Account_Icon.png";
 import helpCenter from "../assets/HelpCenter_Icon.png";
 import { useState } from "react";
 import { signOutUser } from "../utils/auth.js";
-import { netflixLogo, userBadgeIcon } from "../utils/constants.js";
+import { userBadgeIcon } from "../utils/constants.js";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -25,7 +26,7 @@ const Header = () => {
     <header className="flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0 z-50 text-white bg-linear-to-b from-black to-transparent">
       {/* Logo & navigation */}
       <div className="flex items-center gap-8">
-        <img src={netflixLogo} alt="Netflix Logo" className="w-32" />
+        <img src={Logo} alt="Netflix Logo" className="w-32" />
         <nav>
           <ul className="flex gap-6 text-sm font-semibold">
             <li>

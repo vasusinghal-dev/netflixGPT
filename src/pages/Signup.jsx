@@ -6,7 +6,8 @@ import {
   validatePassword,
 } from "../utils/validation.js";
 import { signupUser } from "../utils/auth.js";
-import { heroSectionBg, netflixLogo } from "../utils/constants.js";
+import { heroSectionBg } from "../utils/constants.js";
+import Logo from "../assets/Logo.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -45,12 +46,12 @@ const Signup = () => {
       style={{ backgroundImage: `url(${heroSectionBg})` }}
     >
       {/* black overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/65" />
 
       <div className="relative z-10">
         {/* header */}
         <div className="mt-4 flex justify-around items-center px-8">
-          <img src={netflixLogo} className="w-45" />
+          <img src={Logo} className="w-45" />
           <Link
             to="login"
             className="py-2 px-4 text-sm font-bold rounded text-white bg-red-600 hover:bg-red-700 transition duration-200"
@@ -62,14 +63,14 @@ const Signup = () => {
         {/* center content */}
         <div className="text-center text-white mt-36 px-4 md:px-0">
           <h1 className="mx-auto w-160 text-4xl md:text-7xl font-bold mb-8">
-            Unlimited movies, shows, and more
+            Unlimited Movie Trailers & Teasers
           </h1>
           <p className="text-lg font-bold md:text-xl mb-8">
-            Starts at ₹149. Cancel at any time.
+            Watch the latest trailers anytime, anywhere.
           </p>
           <p className="mb-6 text-base md:text-[16px]">
-            Ready to watch? Enter your email to create or restart your
-            membership.
+            Don’t miss a trailer! Sign up with your email and get instant
+            previews of upcoming hits.
           </p>
 
           {/* signup form */}
