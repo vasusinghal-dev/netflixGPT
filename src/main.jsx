@@ -12,7 +12,6 @@ import AuthObserver from "./components/AuthObserver.jsx";
 import Search from "./pages/Search.jsx";
 import ComingSoon from "./components/ComingSoon.jsx";
 
-<<<<<<< HEAD
 // const router = createBrowserRouter([
 //   {
 //     element: <AuthObserver />,
