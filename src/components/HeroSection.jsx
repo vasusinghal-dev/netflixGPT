@@ -6,7 +6,7 @@ import { truncate } from "../utils/truncate.js";
 import { useEffect, useRef, useState } from "react";
 
 const HeroSection = () => {
-  const { original_title, overview, id } =
+  const { title, overview, id } =
     useSelector((store) => store.movie?.selectedMovie) || {};
 
   const shortOverview = truncate(overview, 150);
@@ -27,11 +27,11 @@ const HeroSection = () => {
     fadeTimeout.current = setTimeout(() => setOverlayOpacity(0.3), 2000);
   };
 
-  // initial fade on mount or when original_title changes
+  // initial fade on mount or when title changes
   useEffect(() => {
     resetFadeTimer();
     return () => clearTimeout(fadeTimeout.current);
-  }, [original_title]);
+  }, [title]);
 
   // call this on mouse move over overlay
   const handleMouseMove = () => {
@@ -54,7 +54,7 @@ const HeroSection = () => {
     };
   }, []);
 
-  if (!original_title || !trailer?.key) {
+  if (!title || !trailer?.key) {
     return <div className="w-full aspect-video bg-black/50" />;
   }
 
@@ -80,7 +80,7 @@ const HeroSection = () => {
             shrink ? "text-3xl" : "text-6xl"
           }`}
         >
-          {original_title}
+          {title}
         </h1>
         <p
           className={`transition-all duration-500 ${

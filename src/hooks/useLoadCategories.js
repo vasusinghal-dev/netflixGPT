@@ -19,7 +19,7 @@ const useLoadCategories = (categories = []) => {
 
           try {
             const res = await fetch(
-              `https://api.themoviedb.org/3/movie/${category.key}?page=1`,
+              `https://api.themoviedb.org/3/${category?.media_type}/${category?.key}?page=1`,
               { ...API_Options, signal: controller.signal },
             );
 

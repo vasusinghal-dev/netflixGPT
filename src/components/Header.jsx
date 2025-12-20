@@ -1,29 +1,32 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import searchIcon from "../assets/Search_Icon.png";
-import accountIcon from "../assets/Account_Icon.png";
-import helpCenter from "../assets/HelpCenter_Icon.png";
-import { useState } from "react";
-import { signOutUser } from "../utils/auth.js";
-import { userBadgeIcon } from "../utils/constants.js";
+import { useEffect, useState } from "react";
+import SearchOverlay from "./SearchOverlay.jsx";
+import useSearchMovies from "../hooks/useSearchMovies.js";
+import ProfileDropdown from "./ProfileDropdown.jsx";
 
 const Header = () => {
-  const user = useSelector((store) => store.user);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false); // state to toggle search bar
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const { results, loading, error } = useSearchMovies(debouncedQuery);
 
-  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
-  const toggleSearch = () => setSearchOpen((prev) => !prev);
-
-  const handleSignout = async () => {
-    const { success, error } = await signOutUser();
-    if (success) console.log("Signed out");
-    else console.error(error);
+  const toggleSearch = () => {
+    setSearchOpen((prev) => !prev);
+    setSearchQuery("");
   };
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [searchQuery]);
+
   return (
-    <header className="flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0 z-50 text-white bg-linear-to-b from-black to-transparent">
+    <header className="flex items-center justify-between px-6 py-4 fixed -top-1 left-0 right-0 z-50 text-white bg-linear-to-b from-black to-transparent">
       {/* Logo & navigation */}
       <div className="flex items-center gap-8">
         <img src={Logo} alt="Netflix Logo" className="w-32" />
@@ -62,9 +65,11 @@ const Header = () => {
           >
             <input
               type="text"
-              placeholder="Search"
-              className="bg-gray-800 text-white px-3 py-1 rounded focus:outline-none w-60"
-              autoFocus={searchOpen} // focus only when opened
+              placeholder="Search for movies, TV shows…"
+              className="bg-gray-800 text-white px-3 py-1 rounded focus:outline-none w-72"
+              autoFocus={searchOpen}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <img
@@ -73,61 +78,29 @@ const Header = () => {
             className="w-10 cursor-pointer"
             onClick={toggleSearch}
           />
+          <div className="relative">
+            {searchOpen && searchQuery.length > 0 && (
+              <SearchOverlay
+                results={results}
+                loading={loading}
+                error={error}
+              />
+            )}
+          </div>
         </div>
+
+        {/* search overlay */}
+
+        <Link
+          to={"/search"}
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 shadow-sm"
+        >
+          AI Search
+        </Link>
 
         {/* Profile dropdown */}
         <div className="relative">
-          <div
-            className="flex justify-center items-center gap-1 cursor-pointer"
-            onClick={toggleDropdown}
-          >
-            <img src={userBadgeIcon} alt="User" className="w-8 h-8 rounded" />
-            <svg
-              className={`w-3 h-3 text-white transition-transform duration-200 ${
-                dropdownOpen ? "rotate-180" : "rotate-0"
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
-
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-black/90 rounded shadow-lg transition-all duration-200">
-              <ul className="flex flex-col p-2 text-sm">
-                <li className="flex items-center gap-3 py-2 px-2 hover:bg-gray-700 cursor-pointer">
-                  <img
-                    src={userBadgeIcon}
-                    alt="User"
-                    className="w-6 h-6 rounded"
-                  />
-                  <span>{user?.name || "User"}</span>
-                </li>
-                <li className="flex items-center gap-3 py-2 px-2 hover:bg-gray-700 cursor-pointer">
-                  <img src={accountIcon} alt="Account" className="w-5 h-5" />
-                  <span>Account</span>
-                </li>
-                <li className="flex items-center gap-3 py-2 px-2 hover:bg-gray-700 cursor-pointer">
-                  <img src={helpCenter} alt="Help" className="w-5 h-5" />
-                  <span>Help Center</span>
-                </li>
-                <div className="border-t border-gray-700 my-2"></div>
-                <li
-                  className="py-2 px-2 text-center text-xs hover:bg-gray-700 cursor-pointer"
-                  onClick={handleSignout}
-                >
-                  Sign Out of Netflix
-                </li>
-              </ul>
-            </div>
-          )}
+          <ProfileDropdown />
         </div>
       </div>
     </header>

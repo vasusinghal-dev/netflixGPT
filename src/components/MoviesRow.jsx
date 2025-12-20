@@ -23,9 +23,10 @@ const MoviesRow = ({ title, moviesList }) => {
       </h2>
 
       <div className="flex gap-3 py-2 px-1">
-        {moviesList.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+        {moviesList.map(
+          (movie) =>
+            movie.poster_path && <MovieCard key={movie.id} movie={movie} />,
+        )}
       </div>
     </div>
   );
